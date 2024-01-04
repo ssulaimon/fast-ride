@@ -20,12 +20,18 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          height: 200,
-          width: 200,
-          color: Colors.red,
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Center(child: Image.asset('assets/images/splash_image.png')),
+          const Center(
+            child: Text(
+              'Fast Drive',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            ),
+          )
+        ],
       ),
     );
   }
