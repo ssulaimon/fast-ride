@@ -1,6 +1,7 @@
 import 'package:fastride/constant/colors.dart';
 import 'package:fastride/constant/routes.dart';
 import 'package:fastride/presentation/controller/login_screen_controller.dart';
+import 'package:fastride/presentation/widgets/custom_btn.dart';
 import 'package:fastride/presentation/widgets/image_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -79,24 +80,16 @@ class LoginScreen extends StatelessWidget {
                                 style: TextStyle(color: MyColors.grey),
                               )),
                         ),
-                        GestureDetector(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: MyColors.primary,
-                              borderRadius: BorderRadius.circular(
-                                5,
-                              ),
-                            ),
-                            child: const Text(
-                              "Login",
-                              style: TextStyle(
-                                color: MyColors.white,
-                                fontSize: 25,
-                              ),
+                        CustomButton(
+                          child: const Text(
+                            "Login",
+                            style: TextStyle(
+                              color: MyColors.white,
+                              fontSize: 25,
                             ),
                           ),
+                          onTap: () =>
+                              Navigator.pushNamed(context, AppRoutes.home),
                         ),
                         const SizedBox(
                           height: 10,
