@@ -1,10 +1,12 @@
 import 'package:fastride/constant/routes.dart';
 import 'package:fastride/presentation/controller/forgetpassword_screen_controller.dart';
+import 'package:fastride/presentation/controller/home_screen_controller.dart';
 import 'package:fastride/presentation/controller/login_screen_controller.dart';
 import 'package:fastride/presentation/controller/on_boarding_screen_controller.dart';
 import 'package:fastride/presentation/controller/registration_screen_controller.dart';
 import 'package:fastride/presentation/controller/splash_screen_controller.dart';
 import 'package:fastride/presentation/screen/forget_password_screen.dart';
+import 'package:fastride/presentation/screen/home_screen.dart';
 import 'package:fastride/presentation/screen/login_screen.dart';
 import 'package:fastride/presentation/screen/on_boarding_screen.dart';
 import 'package:fastride/presentation/screen/registration_screen.dart';
@@ -22,6 +24,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => LoginScreenController()),
         ChangeNotifierProvider(create: (_) => RegistrationScreenController()),
         ChangeNotifierProvider(create: (_) => ForgetPasswordScreenController()),
+        ChangeNotifierProvider(create: (_) => HomeScreenController()),
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,
@@ -33,6 +36,7 @@ void main() {
           AppRoutes.registrationScreen: (context) => const RegistrationScreen(),
           AppRoutes.forgetPasswordScreen: (context) =>
               const ForgetPasswordScreen(),
+          AppRoutes.home: (context) => const HomeScreen()
         },
       ),
     ),

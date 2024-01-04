@@ -1,5 +1,6 @@
 import 'package:fastride/constant/colors.dart';
 import 'package:fastride/constant/routes.dart';
+import 'package:fastride/presentation/widgets/custom_btn.dart';
 import 'package:flutter/material.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
@@ -41,25 +42,9 @@ class ForgetPasswordScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    GestureDetector(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: MyColors.primary,
-                          borderRadius: BorderRadius.circular(
-                            5,
-                          ),
-                        ),
-                        child: const Text(
-                          "Reset Password",
-                          style: TextStyle(
-                            color: MyColors.white,
-                            fontSize: 25,
-                          ),
-                        ),
-                      ),
-                    ),
+                    const CustomButton(
+                      title: "Reset Password",
+                    )
                   ],
                 ),
               ),
