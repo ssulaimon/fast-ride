@@ -43,7 +43,13 @@ class ForgetPasswordScreen extends StatelessWidget {
                       height: 20,
                     ),
                     const CustomButton(
-                      title: "Reset Password",
+                      child: Text(
+                        "Reset Password",
+                        style: TextStyle(
+                          color: MyColors.white,
+                          fontSize: 25,
+                        ),
+                      ),
                     )
                   ],
                 ),

@@ -81,7 +81,13 @@ class LoginScreen extends StatelessWidget {
                               )),
                         ),
                         CustomButton(
-                          title: 'Login',
+                          child: const Text(
+                            "Login",
+                            style: TextStyle(
+                              color: MyColors.white,
+                              fontSize: 25,
+                            ),
+                          ),
                           onTap: () =>
                               Navigator.pushNamed(context, AppRoutes.home),
                         ),

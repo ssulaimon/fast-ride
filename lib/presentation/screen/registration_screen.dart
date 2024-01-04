@@ -98,7 +98,15 @@ class RegistrationScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    const CustomButton(title: "Sign Up"),
+                    const CustomButton(
+                      child: Text(
+                        "Sign Up",
+                        style: TextStyle(
+                          color: MyColors.white,
+                          fontSize: 25,
+                        ),
+                      ),
+                    ),
                     const SizedBox(
                       height: 10,
                     ),

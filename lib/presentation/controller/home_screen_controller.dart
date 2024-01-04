@@ -5,6 +5,14 @@ class HomeScreenController extends ChangeNotifier {
   int currentIndex = 0;
   RideType rideType = RideType.car;
 
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
+  set isLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+
   void rideTypeSelector(int index) {
     if (index == 0) {
       currentIndex = index;
