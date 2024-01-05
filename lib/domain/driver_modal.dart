@@ -9,6 +9,8 @@ class DriverModel {
   final String vehicleNumber;
   final String sex;
   final String location;
+  final bool isActive;
+  final String imageUrl;
   const DriverModel({
     required this.fullName,
     required this.rating,
@@ -20,7 +22,23 @@ class DriverModel {
     required this.vehicleNumber,
     required this.sex,
     required this.location,
+    required this.isActive,
+    required this.imageUrl,
   });
+
+  factory DriverModel.fromJson(Map<String, dynamic> data) => DriverModel(
+      fullName: data["fullName"],
+      rating: data["rating"],
+      joinedDate: data["joinedDate"],
+      membershipYears: data["membershipYears"],
+      tripNumbers: data["tripNumbers"],
+      amount: data["amount"],
+      vehicleName: data["vehicleName"],
+      vehicleNumber: data["vehicleNumber"],
+      sex: data["sex"],
+      location: data["location"],
+      isActive: data["isActive"],
+      imageUrl: data["imageUrl"]);
 
   Map<String, dynamic> toJson() => {
         "fullName": fullName,
@@ -32,6 +50,8 @@ class DriverModel {
         "vehicleName": vehicleName,
         "vehicleNumber": vehicleNumber,
         "sex": sex,
-        "location": location
+        "location": location,
+        "isActive": isActive,
+        "imageUrl": imageUrl
       };
 }

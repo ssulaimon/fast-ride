@@ -59,12 +59,6 @@ class BottomSheetContainer extends StatelessWidget {
     String greeting = currenTime();
     return Consumer<HomeScreenController>(
       builder: (context, homeController, widget) {
-        void findDriver() async {
-          homeController.isLoading = true;
-          await Future.delayed(const Duration(seconds: 5));
-          homeController.isLoading = false;
-        }
-
         return Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(
@@ -135,7 +129,7 @@ class BottomSheetContainer extends StatelessWidget {
                 subtitle: Text("Iyana iba"),
               ),
               CustomButton(
-                onTap: () => findDriver(),
+                onTap: () => homeController.findDriver(),
                 padding: 10,
                 child: homeController.isLoading == true
                     ? const CircularProgressIndicator(

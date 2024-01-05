@@ -5,6 +5,8 @@ import 'package:fastride/presentation/controller/login_screen_controller.dart';
 import 'package:fastride/presentation/controller/on_boarding_screen_controller.dart';
 import 'package:fastride/presentation/controller/registration_screen_controller.dart';
 import 'package:fastride/presentation/controller/splash_screen_controller.dart';
+import 'package:fastride/presentation/screen/available_drivers_screen.dart';
+import 'package:fastride/presentation/screen/driver_profile_screen.dart';
 import 'package:fastride/presentation/screen/forget_password_screen.dart';
 import 'package:fastride/presentation/screen/home_screen.dart';
 import 'package:fastride/presentation/screen/login_screen.dart';
@@ -27,6 +29,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => HomeScreenController()),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         navigatorKey: navigatorKey,
         initialRoute: AppRoutes.splash,
         routes: {
@@ -36,7 +39,10 @@ void main() {
           AppRoutes.registrationScreen: (context) => const RegistrationScreen(),
           AppRoutes.forgetPasswordScreen: (context) =>
               const ForgetPasswordScreen(),
-          AppRoutes.home: (context) => const HomeScreen()
+          AppRoutes.home: (context) => const HomeScreen(),
+          AppRoutes.availableDrivers: (context) =>
+              const AvailableDriverScreen(),
+          AppRoutes.driverProfile: (context) => const DriverProfileScreen(),
         },
       ),
     ),
