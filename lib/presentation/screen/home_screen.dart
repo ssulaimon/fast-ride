@@ -158,60 +158,62 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          CircleAvatar(
+          const CircleAvatar(
             radius: 50,
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          Text(
+          const Text(
             "John Doe",
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w500,
             ),
           ),
-          Text(
+          const Text(
             "No.20, Badagry, Lagos state",
             style: TextStyle(
               color: MyColors.grey,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
           ListTile(
-            leading: Icon(Icons.home_outlined),
-            title: Text("Home"),
+            leading: const Icon(Icons.home_outlined),
+            title: const Text("Home"),
+            onTap: () => Navigator.pop(context),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(Icons.mail_outline),
             title: Text("Messages"),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           ListTile(
-            leading: Icon(Icons.person_2_outlined),
-            title: Text("Profile"),
+            leading: const Icon(Icons.person_2_outlined),
+            title: const Text("Profile"),
+            onTap: () {},
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(Icons.car_rental_outlined),
             title: Text("Bookings"),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(Icons.logout_outlined),
             title: Text("Logout"),
           ),
