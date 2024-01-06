@@ -1,5 +1,7 @@
 import 'package:fastride/constant/ride_selector.dart';
+import 'package:fastride/constant/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:fastride/main.dart';
 
 class HomeScreenController extends ChangeNotifier {
   int currentIndex = 0;
@@ -27,5 +29,14 @@ class HomeScreenController extends ChangeNotifier {
       rideType = RideType.motorCycle;
       notifyListeners();
     }
+  }
+
+  void findDriver() async {
+    _isLoading = true;
+    notifyListeners();
+    await Future.delayed(const Duration(seconds: 5));
+    _isLoading = false;
+    notifyListeners();
+    navigatorKey.currentState!.pushNamed(AppRoutes.availableDrivers);
   }
 }
