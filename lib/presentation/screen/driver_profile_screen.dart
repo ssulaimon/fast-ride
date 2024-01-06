@@ -1,5 +1,6 @@
 import 'package:fastride/constant/colors.dart';
 import 'package:fastride/domain/driver_modal.dart';
+import 'package:fastride/presentation/widgets/custom_btn.dart';
 import 'package:fastride/presentation/widgets/driver_more_details_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -161,6 +162,27 @@ class DriverProfileScreen extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
             trailing: Text(driverModal.sex),
+          ),
+          Center(
+            child: Image.asset("assets/images/driver_car.png"),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 30,
+              vertical: 20,
+            ),
+            child: CustomButton(
+              padding: 15,
+              onTap: () {},
+              child: const Text(
+                "Hire Driver",
+                style: TextStyle(
+                  color: MyColors.white,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
           ),
         ],
       ),
