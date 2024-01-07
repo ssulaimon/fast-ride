@@ -1,5 +1,6 @@
 import 'package:fastride/constant/colors.dart';
 import 'package:fastride/constant/routes.dart';
+import 'package:fastride/domain/firebase_email_auth.dart';
 import 'package:fastride/presentation/controller/home_screen_controller.dart';
 import 'package:fastride/presentation/widgets/custom_btn.dart';
 import 'package:fastride/presentation/widgets/ride_type_widget.dart';
@@ -58,6 +59,8 @@ class BottomSheetContainer extends StatelessWidget {
       }
     ];
     String greeting = currenTime();
+
+    String userName = FirebaseEmailAuth.userName;
     return Consumer<HomeScreenController>(
       builder: (context, homeController, widget) {
         return Container(
@@ -70,7 +73,7 @@ class BottomSheetContainer extends StatelessWidget {
           child: ListView(
             children: [
               Text(
-                "$greeting, John Doe ",
+                "$greeting, $userName ",
                 style: const TextStyle(
                   fontSize: 19,
                   fontWeight: FontWeight.w500,
@@ -157,6 +160,7 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String userName = FirebaseEmailAuth.userName;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
       child: Column(
@@ -168,9 +172,9 @@ class CustomDrawer extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          const Text(
-            "John Doe",
-            style: TextStyle(
+          Text(
+            userName,
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w500,
             ),

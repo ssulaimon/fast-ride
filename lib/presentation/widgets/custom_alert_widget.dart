@@ -21,7 +21,7 @@ class CustomAlertWidget extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           margin: const EdgeInsets.symmetric(horizontal: 30),
           decoration: const BoxDecoration(color: MyColors.white),
-          height: 300,
+          height: 320,
           child: Column(
             children: [
               Image.asset(image),
@@ -35,7 +35,7 @@ class CustomAlertWidget extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               CustomButton(
                 padding: 10,

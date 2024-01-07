@@ -1,4 +1,6 @@
 import 'package:fastride/constant/colors.dart';
+import 'package:fastride/domain/firebase_email_auth.dart';
+import 'package:fastride/domain/upload_profile_image.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -6,6 +8,8 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String userName = FirebaseEmailAuth.userName;
+    String email = FirebaseEmailAuth.email;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColors.transparent,
@@ -28,7 +32,9 @@ class ProfileScreen extends StatelessWidget {
                   bottom: 0,
                   right: 0,
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      await ProfileImageUpload.uploadImage(context: context);
+                    },
                     icon: const Icon(
                       Icons.photo_camera,
                       size: 30,
@@ -42,14 +48,14 @@ class ProfileScreen extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          const ListTile(
-            leading: Icon(
+          ListTile(
+            leading: const Icon(
               Icons.person_2_outlined,
               color: MyColors.primary,
             ),
             title: Text(
-              "John Doe",
-              style: TextStyle(
+              userName,
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
               ),
@@ -63,9 +69,9 @@ class ProfileScreen extends StatelessWidget {
               Icons.email_outlined,
               color: MyColors.primary,
             ),
-            title: const Text(
-              "Johndoe@gmail.com",
-              style: TextStyle(
+            title: Text(
+              email,
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
               ),

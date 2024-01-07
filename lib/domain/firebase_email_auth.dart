@@ -7,6 +7,7 @@ class FirebaseEmailAuth {
   static String get userName => FirebaseAuth.instance.currentUser!.displayName!;
   static User? get user => FirebaseAuth.instance.currentUser;
   static String get email => FirebaseAuth.instance.currentUser!.email!;
+  static String get userId => FirebaseAuth.instance.currentUser!.uid;
 
   Future<String> createAccount({required UserModel userModel}) async {
     try {
@@ -31,9 +32,10 @@ class FirebaseEmailAuth {
 
   Future<String> loginUserAccount({required UserModel userModel}) async {
     try {
-      UserCredential userCredential = await firebaseAuth.signInWithEmailLink(
+      UserCredential userCredential =
+          await firebaseAuth.signInWithEmailAndPassword(
         email: userModel.email,
-        emailLink: userModel.password,
+        password: userModel.password,
       );
       User? user = userCredential.user;
       if (user != null) {
@@ -43,6 +45,16 @@ class FirebaseEmailAuth {
       }
     } on FirebaseAuthException catch (error) {
       return error.message!;
+    }
+  }
+
+  static Future<void> updateProfilePicture({required String imageLink}) async {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    User? user = firebaseAuth.currentUser;
+    if (user != null) {
+      await user.updatePhotoURL(imageLink);
+      await user.reload();
+      user = firebaseAuth.currentUser;
     }
   }
 }

@@ -1,5 +1,7 @@
 import 'package:fastride/constant/colors.dart';
 import 'package:fastride/constant/routes.dart';
+import 'package:fastride/constant/validator.dart';
+import 'package:fastride/domain/user_model.dart';
 import 'package:fastride/presentation/controller/login_screen_controller.dart';
 import 'package:fastride/presentation/widgets/custom_btn.dart';
 import 'package:fastride/presentation/widgets/image_button.dart';
@@ -11,6 +13,9 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController email = TextEditingController();
+    TextEditingController password = TextEditingController();
+    GlobalKey<FormState> _key = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: MyColors.white,
       body: Consumer<LoginScreenController>(
@@ -21,6 +26,7 @@ class LoginScreen extends StatelessWidget {
               child: Center(
                 child: SingleChildScrollView(
                   child: Form(
+                    key: _key,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -31,6 +37,9 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                         TextFormField(
+                          controller: email,
+                          validator: (text) =>
+                              Validator.emailValidator(text: text!),
                           decoration: const InputDecoration(
                               prefixIcon: Icon(Icons.email),
                               focusedBorder: UnderlineInputBorder(
@@ -49,6 +58,9 @@ class LoginScreen extends StatelessWidget {
                           height: 20,
                         ),
                         TextFormField(
+                          controller: password,
+                          validator: (text) =>
+                              Validator.passwordValidator(text: text!),
                           obscureText: loginState.showPassword,
                           decoration: InputDecoration(
                               suffixIcon: IconButton(
@@ -81,16 +93,29 @@ class LoginScreen extends StatelessWidget {
                               )),
                         ),
                         CustomButton(
-                          child: const Text(
-                            "Login",
-                            style: TextStyle(
-                              color: MyColors.white,
-                              fontSize: 25,
-                            ),
-                          ),
-                          onTap: () =>
-                              Navigator.pushNamed(context, AppRoutes.home),
-                        ),
+                            child: loginState.isLoading == true
+                                ? const CircularProgressIndicator(
+                                    color: MyColors.white,
+                                  )
+                                : const Text(
+                                    "Login",
+                                    style: TextStyle(
+                                      color: MyColors.white,
+                                      fontSize: 25,
+                                    ),
+                                  ),
+                            onTap: () {
+                              if (_key.currentState!.validate()) {
+                                UserModel userModel = UserModel(
+                                  email: email.text,
+                                  password: password.text,
+                                );
+                                loginState.loginUser(
+                                  userModel: userModel,
+                                  context: context,
+                                );
+                              }
+                            }),
                         const SizedBox(
                           height: 10,
                         ),
