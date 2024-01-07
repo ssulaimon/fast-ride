@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "447330647202",
+    "project_id": "fast-ride-project",
+    "storage_bucket": "fast-ride-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:447330647202:android:34b321f603cf4431bcabfb",
+        "android_client_info": {
+          "package_name": "com.fastride.fastride"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXD2D8rUTTWHvP4Awn8q8prtVriN0ifAM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

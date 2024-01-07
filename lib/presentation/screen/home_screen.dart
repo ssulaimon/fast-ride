@@ -1,4 +1,6 @@
 import 'package:fastride/constant/colors.dart';
+import 'package:fastride/constant/routes.dart';
+import 'package:fastride/domain/firebase_email_auth.dart';
 import 'package:fastride/presentation/controller/home_screen_controller.dart';
 import 'package:fastride/presentation/widgets/custom_btn.dart';
 import 'package:fastride/presentation/widgets/ride_type_widget.dart';
@@ -57,6 +59,8 @@ class BottomSheetContainer extends StatelessWidget {
       }
     ];
     String greeting = currenTime();
+
+    String userName = FirebaseEmailAuth.userName;
     return Consumer<HomeScreenController>(
       builder: (context, homeController, widget) {
         return Container(
@@ -69,7 +73,7 @@ class BottomSheetContainer extends StatelessWidget {
           child: ListView(
             children: [
               Text(
-                "$greeting, John Doe ",
+                "$greeting, $userName ",
                 style: const TextStyle(
                   fontSize: 19,
                   fontWeight: FontWeight.w500,
@@ -156,62 +160,68 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String userName = FirebaseEmailAuth.userName;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          CircleAvatar(
+          const CircleAvatar(
             radius: 50,
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Text(
-            "John Doe",
-            style: TextStyle(
+            userName,
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w500,
             ),
           ),
-          Text(
+          const Text(
             "No.20, Badagry, Lagos state",
             style: TextStyle(
               color: MyColors.grey,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
           ListTile(
-            leading: Icon(Icons.home_outlined),
-            title: Text("Home"),
+            leading: const Icon(Icons.home_outlined),
+            title: const Text("Home"),
+            onTap: () => Navigator.pop(context),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(Icons.mail_outline),
             title: Text("Messages"),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           ListTile(
-            leading: Icon(Icons.person_2_outlined),
-            title: Text("Profile"),
+            leading: const Icon(Icons.person_2_outlined),
+            title: const Text("Profile"),
+            onTap: () => Navigator.pushNamed(
+              context,
+              AppRoutes.myProfile,
+            ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(Icons.car_rental_outlined),
             title: Text("Bookings"),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(Icons.logout_outlined),
             title: Text("Logout"),
           ),

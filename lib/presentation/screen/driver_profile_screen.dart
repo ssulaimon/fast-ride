@@ -173,7 +173,7 @@ class DriverProfileScreen extends StatelessWidget {
             ),
             child: CustomButton(
               padding: 15,
-              onTap: () {},
+              onTap: () => rideBookedDialogue(context: context),
               child: const Text(
                 "Hire Driver",
                 style: TextStyle(
@@ -185,6 +185,67 @@ class DriverProfileScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+void rideBookedDialogue({required BuildContext context}) async {
+  await showDialog(
+      context: context, builder: (context) => const RideConfirmedWidget());
+}
+
+class RideConfirmedWidget extends StatelessWidget {
+  const RideConfirmedWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: MyColors.transparent,
+      child: Center(
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          height: 350,
+          decoration: const BoxDecoration(color: MyColors.white),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                "assets/images/booked_car_image.png",
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                "Booked! Your ride on it way",
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              const Text(
+                "Have a safe travel!!!.Remember to share your ride details with friends or family",
+                style: TextStyle(
+                  color: MyColors.grey,
+                  fontSize: 16,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomButton(
+                onTap: () {},
+                padding: 10,
+                child: const Text(
+                  'Check Bookings',
+                  style: TextStyle(color: MyColors.white, fontSize: 18),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
