@@ -11,13 +11,20 @@ import 'package:fastride/presentation/screen/forget_password_screen.dart';
 import 'package:fastride/presentation/screen/home_screen.dart';
 import 'package:fastride/presentation/screen/login_screen.dart';
 import 'package:fastride/presentation/screen/on_boarding_screen.dart';
+import 'package:fastride/presentation/screen/profile_screen.dart';
 import 'package:fastride/presentation/screen/registration_screen.dart';
 import 'package:fastride/presentation/screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     MultiProvider(
       providers: [
@@ -43,6 +50,7 @@ void main() {
           AppRoutes.availableDrivers: (context) =>
               const AvailableDriverScreen(),
           AppRoutes.driverProfile: (context) => const DriverProfileScreen(),
+          AppRoutes.myProfile: (context) => const ProfileScreen(),
         },
       ),
     ),

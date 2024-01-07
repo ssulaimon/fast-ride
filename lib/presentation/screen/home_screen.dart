@@ -1,4 +1,5 @@
 import 'package:fastride/constant/colors.dart';
+import 'package:fastride/constant/routes.dart';
 import 'package:fastride/presentation/controller/home_screen_controller.dart';
 import 'package:fastride/presentation/widgets/custom_btn.dart';
 import 'package:fastride/presentation/widgets/ride_type_widget.dart';
@@ -201,7 +202,10 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.person_2_outlined),
             title: const Text("Profile"),
-            onTap: () {},
+            onTap: () => Navigator.pushNamed(
+              context,
+              AppRoutes.myProfile,
+            ),
           ),
           const SizedBox(
             height: 5,

@@ -7,4 +7,5 @@ class AppRoutes {
   static const String home = '/home';
   static const String availableDrivers = '/drivers';
   static const String driverProfile = '/driverProfile';
+  static const String myProfile = '/myProfile';
 }
