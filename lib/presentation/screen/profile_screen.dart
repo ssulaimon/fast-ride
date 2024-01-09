@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:fastride/constant/colors.dart';
 import 'package:fastride/domain/firebase_email_auth.dart';
 import 'package:fastride/domain/upload_profile_image.dart';
@@ -10,6 +12,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     String userName = FirebaseEmailAuth.userName;
     String email = FirebaseEmailAuth.email;
+    String? profilePic = FirebaseEmailAuth.profilePicture;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColors.transparent,
@@ -24,9 +27,11 @@ class ProfileScreen extends StatelessWidget {
           Center(
             child: Stack(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 60,
                   backgroundColor: MyColors.grey,
+                  backgroundImage:
+                      profilePic != null ? NetworkImage(profilePic) : null,
                 ),
                 Positioned(
                   bottom: 0,
@@ -95,7 +100,16 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             trailing: const Icon(Icons.arrow_forward),
-            onTap: () {},
+            onTap: () async {
+              await FirebaseEmailAuth().sendPasswordResetLink(email: email);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                    "Please Check Your email To Continue",
+                  ),
+                ),
+              );
+            },
           ),
           const SizedBox(
             height: 10,

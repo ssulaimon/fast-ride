@@ -1,8 +1,8 @@
 import 'package:fastride/constant/routes.dart';
-import 'package:fastride/presentation/controller/forgetpassword_screen_controller.dart';
 import 'package:fastride/presentation/controller/home_screen_controller.dart';
 import 'package:fastride/presentation/controller/login_screen_controller.dart';
 import 'package:fastride/presentation/controller/on_boarding_screen_controller.dart';
+import 'package:fastride/presentation/controller/password_reset_screen_controller.dart';
 import 'package:fastride/presentation/controller/registration_screen_controller.dart';
 import 'package:fastride/presentation/controller/splash_screen_controller.dart';
 import 'package:fastride/presentation/screen/available_drivers_screen.dart';
@@ -32,8 +32,8 @@ void main() async {
         ChangeNotifierProvider(create: (_) => OnBoardingScreenController()),
         ChangeNotifierProvider(create: (_) => LoginScreenController()),
         ChangeNotifierProvider(create: (_) => RegistrationScreenController()),
-        ChangeNotifierProvider(create: (_) => ForgetPasswordScreenController()),
         ChangeNotifierProvider(create: (_) => HomeScreenController()),
+        ChangeNotifierProvider(create: (_) => PasswordResetScreenController()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
