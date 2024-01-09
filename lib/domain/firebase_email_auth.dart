@@ -8,7 +8,8 @@ class FirebaseEmailAuth {
   static User? get user => FirebaseAuth.instance.currentUser;
   static String get email => FirebaseAuth.instance.currentUser!.email!;
   static String get userId => FirebaseAuth.instance.currentUser!.uid;
-
+  static String? get profilePicture =>
+      FirebaseAuth.instance.currentUser!.photoURL;
   Future<String> createAccount({required UserModel userModel}) async {
     try {
       UserCredential? userCredential =
@@ -55,6 +56,15 @@ class FirebaseEmailAuth {
       await user.updatePhotoURL(imageLink);
       await user.reload();
       user = firebaseAuth.currentUser;
+    }
+  }
+
+  Future<String> sendPasswordResetLink({required String email}) async {
+    try {
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+      return "Reset Link Sent";
+    } on FirebaseAuthException catch (error) {
+      return error.message!;
     }
   }
 }

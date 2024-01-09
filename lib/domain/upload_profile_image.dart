@@ -20,9 +20,9 @@ class ProfileImageUpload {
       File file = File(
         xfile.path,
       );
-      print(file);
-
       try {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Please Wait Image Loading")));
         String userId = FirebaseEmailAuth.email;
         FirebaseStorage firebaseStorage = FirebaseStorage.instance;
         Reference reference = firebaseStorage.ref();

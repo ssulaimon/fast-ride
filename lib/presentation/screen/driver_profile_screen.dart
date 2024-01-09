@@ -92,9 +92,9 @@ class DriverProfileScreen extends StatelessWidget {
                       Icons.attach_money,
                       color: MyColors.primary,
                     ),
-                    const Text(
-                      "\$20",
-                      style: TextStyle(fontWeight: FontWeight.w500),
+                    Text(
+                      driverModal.amount.toString(),
+                      style: const TextStyle(fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),

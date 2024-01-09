@@ -1,0 +1,24 @@
+{
+    "drivers": [
+       { "fullName": "John Doe",
+        "rating": 5.0,
+        "joinedDate": "10-04-2022",
+        "membershipYears": "4years",
+    "tripNumbers":200, "amount": 20.00,"vehicleName": "Toyota Camry", "vehicleNumber": "GJehskoO", "sex":"Male", "location":"Badagry, Lagos state", "isActive": true },  
+     { "fullName": "Salaudeen Sulaimon",
+        "rating": 2.0,
+        "joinedDate": "10-04-2021",
+        "membershipYears": "5years",
+    "tripNumbers":50, "amount": 10.00,"vehicleName": "Toyota Venza", "vehicleNumber": "GJehssdoO", "sex":"Male", "location":"Abuja, Nigeria ", "isActive": true },
+    { "fullName": "Omotunde Moses",
+        "rating": 4.0,
+        "joinedDate": "10-04-2023",
+        "membershipYears": "1years",
+    "tripNumbers":100, "amount": 15.00,"vehicleName": "Tesla ModelX", "vehicleNumber": "BHNhsFdoO", "sex":"Male", "location":"Lokoja, Nigeria ", "isActive": true },
+    { "fullName": "Ali Peter",
+        "rating": 3.0,
+        "joinedDate": "10-04-2022",
+        "membershipYears": "3years",
+    "tripNumbers":70, "amount": 17.00,"vehicleName": "BMW", "vehicleNumber": "BJeHsYdoO", "sex":"Male", "location":"Kaduna, Nigeria ", "isActive": true }
+    ]
+}

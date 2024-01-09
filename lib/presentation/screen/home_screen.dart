@@ -161,13 +161,16 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String userName = FirebaseEmailAuth.userName;
+    String? profilePic = FirebaseEmailAuth.profilePicture;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const CircleAvatar(
+          CircleAvatar(
             radius: 50,
+            backgroundImage:
+                profilePic != null ? NetworkImage(profilePic) : null,
           ),
           const SizedBox(
             height: 10,
