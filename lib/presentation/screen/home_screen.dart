@@ -1,11 +1,15 @@
 import 'package:fastride/constant/colors.dart';
 import 'package:fastride/constant/routes.dart';
+import 'package:fastride/constant/validator.dart';
 import 'package:fastride/domain/firebase_email_auth.dart';
+
 import 'package:fastride/presentation/controller/home_screen_controller.dart';
 import 'package:fastride/presentation/widgets/custom_btn.dart';
 import 'package:fastride/presentation/widgets/ride_type_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:provider/provider.dart';
+import 'package:latlong2/latlong.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,13 +22,42 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: MyColors.transparent,
           elevation: 0.0,
         ),
-        body: Container(
-          color: MyColors.primary,
+        body: const SizedBox(
+          child: AppMap(),
         ),
         drawer: const Drawer(
           child: CustomDrawer(),
         ),
         bottomSheet: const BottomSheetContainer());
+  }
+}
+
+class AppMap extends StatelessWidget {
+  const AppMap({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<HomeScreenController>(
+        builder: (context, homeScreenController, child) {
+      return FlutterMap(
+          options: MapOptions(
+            initialCenter: homeScreenController.baseLocation,
+            initialZoom: 10,
+          ),
+          children: [
+            TileLayer(
+              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+              userAgentPackageName: 'com.example.app',
+            ),
+            MarkerLayer(markers: [
+              Marker(
+                  point: homeScreenController.baseLocation,
+                  child: const Icon(
+                    Icons.gps_fixed,
+                    color: MyColors.primary,
+                  ))
+            ])
+          ]);
+    });
   }
 }
 
@@ -116,13 +149,14 @@ class BottomSheetContainer extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const ListTile(
-                leading: Icon(
+              ListTile(
+                onTap: () => setLocation(context: context),
+                leading: const Icon(
                   Icons.gps_fixed,
                   color: MyColors.primary,
                 ),
-                title: Text("Pick Up"),
-                subtitle: Text("Badagry"),
+                title: const Text("Pick Up"),
+                subtitle: Text(homeController.baseLocationName),
               ),
               const ListTile(
                 leading: Icon(
@@ -224,12 +258,83 @@ class CustomDrawer extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          const ListTile(
-            leading: Icon(Icons.logout_outlined),
-            title: Text("Logout"),
+          ListTile(
+            onTap: () {
+              FirebaseEmailAuth.logoutUser();
+              Navigator.popAndPushNamed(
+                context,
+                AppRoutes.loginScreen,
+              );
+            },
+            leading: const Icon(Icons.logout_outlined),
+            title: const Text("Logout"),
           ),
         ],
       ),
     );
   }
+}
+
+void setLocation({required BuildContext context}) async {
+  return await showDialog(
+      context: context,
+      builder: (_) {
+        TextEditingController location = TextEditingController();
+        GlobalKey<FormState> key = GlobalKey<FormState>();
+        return Consumer<HomeScreenController>(
+            builder: (context, homeScreenController, child) {
+          return Material(
+            color: MyColors.transparent,
+            child: Center(
+              child: Container(
+                decoration: const BoxDecoration(color: MyColors.white),
+                height: 150,
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.all(20),
+                child: Form(
+                  key: key,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextFormField(
+                        controller: location,
+                        onFieldSubmitted: (text) {
+                          if (key.currentState!.validate()) {
+                            homeScreenController.updateBaselocation(
+                                location: location.text);
+                            Navigator.pop(context);
+                          }
+                        },
+                        validator: (text) =>
+                            Validator.locationValidator(text: text!),
+                        decoration: const InputDecoration(
+                          labelStyle: TextStyle(color: MyColors.grey),
+                          labelText: "Where are you heading from?",
+                          hintText: "Where are you heading from?",
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: MyColors.primary,
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: MyColors.primary,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      // const CircularProgressIndicator(
+                      //   color: MyColors.primary,
+                      // )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        });
+      });
 }

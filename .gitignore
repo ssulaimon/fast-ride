@@ -45,3 +45,4 @@ app.*.map.json
 
 /lib/firebase_options.dart
 ios\Runner\GoogleService-Info.plist
+lib/constant/api_key.dart

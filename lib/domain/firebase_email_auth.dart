@@ -67,4 +67,8 @@ class FirebaseEmailAuth {
       return error.message!;
     }
   }
+
+  static void logoutUser() async {
+    await FirebaseAuth.instance.signOut();
+  }
 }
