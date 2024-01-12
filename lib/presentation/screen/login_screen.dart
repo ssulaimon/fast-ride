@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController email = TextEditingController();
     TextEditingController password = TextEditingController();
-    GlobalKey<FormState> _key = GlobalKey<FormState>();
+    GlobalKey<FormState> key = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: MyColors.white,
       body: Consumer<LoginScreenController>(
@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
               child: Center(
                 child: SingleChildScrollView(
                   child: Form(
-                    key: _key,
+                    key: key,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -105,7 +105,7 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                   ),
                             onTap: () {
-                              if (_key.currentState!.validate()) {
+                              if (key.currentState!.validate()) {
                                 UserModel userModel = UserModel(
                                   email: email.text,
                                   password: password.text,

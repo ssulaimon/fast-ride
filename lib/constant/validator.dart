@@ -40,4 +40,14 @@ class Validator {
       return null;
     }
   }
+
+  static String? locationValidator({required String text}) {
+    if (text.isEmpty) {
+      return "Location cannot be empty";
+    } else if (text.length < 3) {
+      return "Location is invalid";
+    } else {
+      return null;
+    }
+  }
 }
