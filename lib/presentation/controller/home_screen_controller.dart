@@ -11,9 +11,13 @@ class HomeScreenController extends ChangeNotifier {
   bool _lookingforLocation = false;
   bool get lookingforLocation => _lookingforLocation;
   String _baseLocationName = "Badagry";
+  String _destinationLocationName = "Ikeja";
   String get baseLocationName => _baseLocationName;
+  String get destinationLocationName => _destinationLocationName;
   LatLng _baseLocation = const LatLng(6.43216, 2.89265);
+  LatLng _destinationLocation = const LatLng(6.43216, 2.89265);
   LatLng get baseLocation => _baseLocation;
+  LatLng get destinationLocation => _destinationLocation;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -30,7 +34,23 @@ class HomeScreenController extends ChangeNotifier {
         await LatLongGetter.locationLatLongGetter(location: location);
     if (result != null) {
       _baseLocation = LatLng(result['latitude'], result['longitude']);
+      notifyListeners();
       _baseLocationName = result["name"];
+      notifyListeners();
+    } else {
+      return;
+    }
+  }
+
+  void updateDestinationLocation({required String location}) async {
+    _lookingforLocation = true;
+    notifyListeners();
+    Map<String, dynamic>? result =
+        await LatLongGetter.locationLatLongGetter(location: location);
+    if (result != null) {
+      _destinationLocation = LatLng(result['latitude'], result['longitude']);
+      notifyListeners();
+      _destinationLocationName = result["name"];
       notifyListeners();
     } else {
       return;

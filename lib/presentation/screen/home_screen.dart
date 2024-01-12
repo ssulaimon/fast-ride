@@ -9,7 +9,6 @@ import 'package:fastride/presentation/widgets/ride_type_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:provider/provider.dart';
-import 'package:latlong2/latlong.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -38,25 +37,51 @@ class AppMap extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<HomeScreenController>(
         builder: (context, homeScreenController, child) {
-      return FlutterMap(
-          options: MapOptions(
-            initialCenter: homeScreenController.baseLocation,
-            initialZoom: 10,
-          ),
-          children: [
-            TileLayer(
-              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-              userAgentPackageName: 'com.example.app',
+      return Stack(
+        children: [
+          FlutterMap(
+              options: MapOptions(
+                initialCenter: homeScreenController.baseLocation,
+                initialZoom: 10,
+              ),
+              children: [
+                TileLayer(
+                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  userAgentPackageName: 'com.example.app',
+                ),
+                MarkerLayer(markers: [
+                  Marker(
+                      point: homeScreenController.baseLocation,
+                      child: const Icon(
+                        Icons.gps_fixed,
+                        color: MyColors.primary,
+                      )),
+                  Marker(
+                      point: homeScreenController.destinationLocation,
+                      child: const Icon(
+                        Icons.location_on,
+                        color: MyColors.red,
+                      )),
+                ])
+              ]),
+          Positioned(
+            top: 90,
+            child: SizedBox(
+              height: 300,
+              child: RotatedBox(
+                quarterTurns: 1,
+                child: Slider(
+                  secondaryActiveColor: MyColors.primary,
+                  min: 10,
+                  max: 50,
+                  onChanged: (value) {},
+                  value: 10,
+                ),
+              ),
             ),
-            MarkerLayer(markers: [
-              Marker(
-                  point: homeScreenController.baseLocation,
-                  child: const Icon(
-                    Icons.gps_fixed,
-                    color: MyColors.primary,
-                  ))
-            ])
-          ]);
+          )
+        ],
+      );
     });
   }
 }
@@ -158,13 +183,14 @@ class BottomSheetContainer extends StatelessWidget {
                 title: const Text("Pick Up"),
                 subtitle: Text(homeController.baseLocationName),
               ),
-              const ListTile(
-                leading: Icon(
+              ListTile(
+                onTap: () => setDestinationLocation(context: context),
+                leading: const Icon(
                   Icons.location_on,
                   color: MyColors.primary,
                 ),
-                title: Text("Drop-Off"),
-                subtitle: Text("Iyana iba"),
+                title: const Text("Drop-Off"),
+                subtitle: Text(homeController.destinationLocationName),
               ),
               CustomButton(
                 onTap: () => homeController.findDriver(),
@@ -326,9 +352,77 @@ void setLocation({required BuildContext context}) async {
                       const SizedBox(
                         height: 10,
                       ),
-                      // const CircularProgressIndicator(
-                      //   color: MyColors.primary,
-                      // )
+                      homeScreenController.lookingforLocation == true
+                          ? const CircularProgressIndicator(
+                              color: MyColors.primary,
+                            )
+                          : const SizedBox(),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        });
+      });
+}
+
+void setDestinationLocation({required BuildContext context}) async {
+  return await showDialog(
+      context: context,
+      builder: (_) {
+        TextEditingController location = TextEditingController();
+        GlobalKey<FormState> key = GlobalKey<FormState>();
+        return Consumer<HomeScreenController>(
+            builder: (context, homeScreenController, child) {
+          return Material(
+            color: MyColors.transparent,
+            child: Center(
+              child: Container(
+                decoration: const BoxDecoration(color: MyColors.white),
+                height: 150,
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.all(20),
+                child: Form(
+                  key: key,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextFormField(
+                        controller: location,
+                        onFieldSubmitted: (text) {
+                          if (key.currentState!.validate()) {
+                            homeScreenController.updateDestinationLocation(
+                                location: location.text);
+                            Navigator.pop(context);
+                          }
+                        },
+                        validator: (text) =>
+                            Validator.locationValidator(text: text!),
+                        decoration: const InputDecoration(
+                          labelStyle: TextStyle(color: MyColors.grey),
+                          labelText: "Where are you heading from?",
+                          hintText: "Where are you heading from?",
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: MyColors.primary,
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: MyColors.primary,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      homeScreenController.lookingforLocation == true
+                          ? const CircularProgressIndicator(
+                              color: MyColors.primary,
+                            )
+                          : const SizedBox()
                     ],
                   ),
                 ),
