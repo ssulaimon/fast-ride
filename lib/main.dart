@@ -3,9 +3,11 @@ import 'package:fastride/presentation/controller/home_screen_controller.dart';
 import 'package:fastride/presentation/controller/login_screen_controller.dart';
 import 'package:fastride/presentation/controller/on_boarding_screen_controller.dart';
 import 'package:fastride/presentation/controller/password_reset_screen_controller.dart';
+import 'package:fastride/presentation/controller/rating_controller.dart';
 import 'package:fastride/presentation/controller/registration_screen_controller.dart';
 import 'package:fastride/presentation/controller/splash_screen_controller.dart';
 import 'package:fastride/presentation/screen/available_drivers_screen.dart';
+import 'package:fastride/presentation/screen/bookings_screen.dart';
 import 'package:fastride/presentation/screen/driver_profile_screen.dart';
 import 'package:fastride/presentation/screen/forget_password_screen.dart';
 import 'package:fastride/presentation/screen/home_screen.dart';
@@ -14,6 +16,7 @@ import 'package:fastride/presentation/screen/on_boarding_screen.dart';
 import 'package:fastride/presentation/screen/profile_screen.dart';
 import 'package:fastride/presentation/screen/registration_screen.dart';
 import 'package:fastride/presentation/screen/splash_screen.dart';
+import 'package:fastride/presentation/screen/trip_details.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,6 +37,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => RegistrationScreenController()),
         ChangeNotifierProvider(create: (_) => HomeScreenController()),
         ChangeNotifierProvider(create: (_) => PasswordResetScreenController()),
+        ChangeNotifierProvider(create: (_) => RatingController()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -51,6 +55,8 @@ void main() async {
               const AvailableDriverScreen(),
           AppRoutes.driverProfile: (context) => const DriverProfileScreen(),
           AppRoutes.myProfile: (context) => const ProfileScreen(),
+          AppRoutes.bookingScreen: (context) => const BookingsScreen(),
+          AppRoutes.tripDetails: (context) => const TripDetailsScreen(),
         },
       ),
     ),

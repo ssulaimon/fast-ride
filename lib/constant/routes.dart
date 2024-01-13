@@ -8,4 +8,6 @@ class AppRoutes {
   static const String availableDrivers = '/drivers';
   static const String driverProfile = '/driverProfile';
   static const String myProfile = '/myProfile';
+  static const String bookingScreen = '/bookingScreen';
+  static const String tripDetails = '/tripDetails';
 }

@@ -15,7 +15,7 @@ class HomeScreenController extends ChangeNotifier {
   String get baseLocationName => _baseLocationName;
   String get destinationLocationName => _destinationLocationName;
   LatLng _baseLocation = const LatLng(6.43216, 2.89265);
-  LatLng _destinationLocation = const LatLng(6.43216, 2.89265);
+  LatLng _destinationLocation = const LatLng(6.5960605, 3.340787);
   LatLng get baseLocation => _baseLocation;
   LatLng get destinationLocation => _destinationLocation;
 
