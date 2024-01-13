@@ -9,6 +9,7 @@ import 'package:fastride/presentation/widgets/ride_type_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -37,49 +38,40 @@ class AppMap extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<HomeScreenController>(
         builder: (context, homeScreenController, child) {
-      return Stack(
+      return FlutterMap(
+        options: MapOptions(
+          initialCenter: homeScreenController.baseLocation,
+          initialZoom: 10,
+        ),
         children: [
-          FlutterMap(
-              options: MapOptions(
-                initialCenter: homeScreenController.baseLocation,
-                initialZoom: 10,
-              ),
-              children: [
-                TileLayer(
-                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  userAgentPackageName: 'com.example.app',
-                ),
-                MarkerLayer(markers: [
-                  Marker(
-                      point: homeScreenController.baseLocation,
-                      child: const Icon(
-                        Icons.gps_fixed,
-                        color: MyColors.primary,
-                      )),
-                  Marker(
-                      point: homeScreenController.destinationLocation,
-                      child: const Icon(
-                        Icons.location_on,
-                        color: MyColors.red,
-                      )),
-                ])
-              ]),
-          Positioned(
-            top: 90,
-            child: SizedBox(
-              height: 300,
-              child: RotatedBox(
-                quarterTurns: 1,
-                child: Slider(
-                  secondaryActiveColor: MyColors.primary,
-                  min: 10,
-                  max: 50,
-                  onChanged: (value) {},
-                  value: 10,
-                ),
-              ),
-            ),
-          )
+          TileLayer(
+            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            userAgentPackageName: 'com.example.app',
+          ),
+          MarkerLayer(markers: [
+            Marker(
+                point: homeScreenController.baseLocation,
+                child: const Icon(
+                  Icons.car_crash_outlined,
+                  color: MyColors.primary,
+                )),
+            Marker(
+                point: homeScreenController.destinationLocation,
+                child: const Icon(
+                  Icons.location_on,
+                  color: MyColors.red,
+                )),
+          ]),
+          PolylineLayer(polylines: [
+            Polyline(
+              color: MyColors.primary,
+              strokeWidth: 5,
+              points: [
+                homeScreenController.baseLocation,
+                homeScreenController.destinationLocation,
+              ],
+            )
+          ])
         ],
       );
     });
@@ -259,9 +251,14 @@ class CustomDrawer extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          const ListTile(
-            leading: Icon(Icons.mail_outline),
-            title: Text("Messages"),
+          ListTile(
+            onTap: () async {
+              await FirebaseFirestore.instance
+                  .collection("test")
+                  .add({"tese": "tese"});
+            },
+            leading: const Icon(Icons.mail_outline),
+            title: const Text("Messages"),
           ),
           const SizedBox(
             height: 5,
@@ -277,9 +274,10 @@ class CustomDrawer extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          const ListTile(
-            leading: Icon(Icons.car_rental_outlined),
-            title: Text("Bookings"),
+          ListTile(
+            onTap: () => Navigator.pushNamed(context, AppRoutes.bookingScreen),
+            leading: const Icon(Icons.car_rental_outlined),
+            title: const Text("Bookings"),
           ),
           const SizedBox(
             height: 5,

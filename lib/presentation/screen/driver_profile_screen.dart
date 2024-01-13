@@ -1,8 +1,18 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fastride/constant/colors.dart';
+import 'package:fastride/constant/routes.dart';
 import 'package:fastride/domain/driver_modal.dart';
+import 'package:fastride/domain/firebase_email_auth.dart';
+import 'package:fastride/domain/trip_model.dart';
+import 'package:fastride/presentation/controller/home_screen_controller.dart';
 import 'package:fastride/presentation/widgets/custom_btn.dart';
 import 'package:fastride/presentation/widgets/driver_more_details_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:fastride/constant/ride_status.dart';
+import 'package:uuid/uuid.dart';
 
 class DriverProfileScreen extends StatelessWidget {
   const DriverProfileScreen({super.key});
@@ -12,6 +22,7 @@ class DriverProfileScreen extends StatelessWidget {
     final Map<String, dynamic> driverProfile =
         ModalRoute.of(context)!.settings.arguments! as Map<String, dynamic>;
     DriverModel driverModal = driverProfile['driverProfile'] as DriverModel;
+    final tripData = Provider.of<HomeScreenController>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -173,7 +184,21 @@ class DriverProfileScreen extends StatelessWidget {
             ),
             child: CustomButton(
               padding: 15,
-              onTap: () => rideBookedDialogue(context: context),
+              onTap: () async {
+                String id = const Uuid().v4();
+                TripModel tripModel = TripModel(
+                    baseLocation: tripData.baseLocationName,
+                    destinationLocation: tripData.destinationLocationName,
+                    driverName: driverModal.fullName,
+                    tripStatus: RideStatus.ongoing.name,
+                    distance: 30.00,
+                    amount: driverModal.amount,
+                    tripId: id);
+                await FirebaseFirestore.instance
+                    .collection(FirebaseEmailAuth.userId)
+                    .add(tripModel.toJson());
+                rideBookedDialogue(context: context);
+              },
               child: const Text(
                 "Hire Driver",
                 style: TextStyle(
@@ -236,7 +261,10 @@ class RideConfirmedWidget extends StatelessWidget {
                 height: 20,
               ),
               CustomButton(
-                onTap: () {},
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  AppRoutes.bookingScreen,
+                ),
                 padding: 10,
                 child: const Text(
                   'Check Bookings',
